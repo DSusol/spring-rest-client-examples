@@ -1,4 +1,4 @@
-package guru.springframework.springrestclientexamples;
+package guru.springframework.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
