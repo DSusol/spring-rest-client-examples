@@ -1,6 +1,7 @@
 package guru.springframework.springrestclient.services;
 
 import guru.springframework.api.domain.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +14,18 @@ import java.util.List;
 public class ApiServiceImpl implements ApiService {
 
     private final RestTemplate restTemplate;
+    private final String url;
 
-    public ApiServiceImpl(RestTemplate restTemplate) {
+    public ApiServiceImpl(RestTemplate restTemplate, @Value("${api.url}") String url) {
         this.restTemplate = restTemplate;
+        this.url = url;
     }
 
     @Override
     public List<User> getAllUsers() {
 
         ResponseEntity<List<User>> response =
-                restTemplate.exchange("https://jsonplaceholder.typicode.com/users",
-                        HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
+                restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
 
         return response.getBody();
     }
